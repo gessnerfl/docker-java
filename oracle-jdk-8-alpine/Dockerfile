@@ -1,9 +1,7 @@
 # AlpineLinux with a glibc-2.26-r0 and Oracle Java 8
 FROM alpine:3.7
 
-MAINTAINER Anastas Dancha <anapsix@random.io>
-# thanks to Vladimir Krivosheev <develar@gmail.com> aka @develar for smaller image
-# and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
+MAINTAINER Florian Gessner
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=8 \
@@ -16,7 +14,7 @@ ENV JAVA_VERSION_MAJOR=8 \
     GLIBC_REPO=https://github.com/sgerrand/alpine-pkg-glibc \
     GLIBC_VERSION=2.26-r0 \
     LANG=C.UTF-8
-    
+
 # do all in one step
 RUN set -ex && \
     [[ ${JAVA_VERSION_MAJOR} != 7 ]] || ( echo >&2 'Oracle no longer publishes JAVA7 packages' && exit 1 ) && \
@@ -78,5 +76,3 @@ RUN set -ex && \
            /opt/jdk/jre/lib/plugin.jar \
            /tmp/* /var/cache/apk/* && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
-
-# EOF
